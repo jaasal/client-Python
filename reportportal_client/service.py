@@ -202,6 +202,8 @@ class ReportPortalService(object):
                 max_retries=retries, pool_maxsize=self.max_pool_size))
         self.session.headers["Authorization"] = "bearer {0}".format(self.token)
         self.launch_id = None
+        self.rerun = None
+        self.rerun_of = None
         self.verify_ssl = verify_ssl
 
     def terminate(self, *args, **kwargs):
@@ -223,7 +225,9 @@ class ReportPortalService(object):
             "description": description,
             "attributes": attributes,
             "startTime": start_time,
-            "mode": mode
+            "mode": mode,
+            "rerun": self.rerun,
+            "rerunOf": self.rerun_of
         }
         url = uri_join(self.base_url_v2, "launch")
         r = self.session.post(url=url, json=data, verify=self.verify_ssl)
