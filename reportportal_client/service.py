@@ -216,6 +216,8 @@ class ReportPortalService(object):
                      description=None,
                      attributes=None,
                      mode=None,
+                     rerun=None,
+                     rerun_of=None,
                      **kwargs):
         """Start a new launch with the given parameters."""
         if attributes and isinstance(attributes, dict):
@@ -226,8 +228,8 @@ class ReportPortalService(object):
             "attributes": attributes,
             "startTime": start_time,
             "mode": mode,
-            "rerun": self.rerun,
-            "rerunOf": self.rerun_of
+            "rerun": rerun,
+            "rerunOf": rerun_of
         }
         url = uri_join(self.base_url_v2, "launch")
         r = self.session.post(url=url, json=data, verify=self.verify_ssl)
